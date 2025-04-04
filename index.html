@@ -121,22 +121,47 @@
         max-width: 1800px;
         left: 50%;
         transform: translateX(-50%);
-        top: 20px;
+        top: 0;
         padding: 0 20px;
       }
 
       .nav-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center; /* Changed from space-between to center */
         align-items: center;
         height: 80px;
         width: 100%;
         max-width: 1800px;
         margin: 0 auto;
+        position: relative; /* Added for absolute positioning of logo */
       }
 
-      .hero-computer {
-        filter: drop-shadow(0 0 20px rgba(0, 161, 255, 0.3));
+      /* New centered menu styles */
+      .centered-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .menu-items {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-grow: 1;
+      }
+
+      .logo-container {
+        position: absolute;
+        left: 20px;
+      }
+
+      .contact-button-container {
+        position: absolute;
+        right: 20px;
       }
 
       .floating {
@@ -216,8 +241,8 @@
 
       .newsletter-section {
         position: relative;
-        padding: 80px 0;
-        margin: 80px 0;
+        padding: 60px 0;
+        margin: 60px 0;
         z-index: 10;
       }
 
@@ -231,7 +256,7 @@
 
       .newsletter-card {
         width: 100%;
-        padding: 60px;
+        padding: 40px;
         border-radius: 24px;
         position: relative;
         overflow: hidden;
@@ -239,7 +264,7 @@
 
       .nav-link {
         position: relative;
-        padding: 8px 16px;
+        padding: 8px 12px;
         border-radius: 8px;
         transition: all 0.3s ease;
       }
@@ -334,20 +359,157 @@
       }
 
       .main-content {
-        margin-top: 100px;
+        margin-top: 80px;
+        padding-bottom: 40px;
+      }
+
+      /* Neural Network Visualization */
+      .neural-network {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 16px;
+      }
+
+      .neural-node {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: var(--neon-blue);
+        border-radius: 50%;
+        filter: blur(1px);
+        box-shadow: 0 0 10px var(--neon-blue);
+      }
+
+      .neural-connection {
+        position: absolute;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-blue),
+          var(--neon-blue)
+        );
+        transform-origin: left center;
+      }
+
+      .tech-particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .tech-particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: var(--neon-blue);
+        border-radius: 50%;
+        opacity: 0.6;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 1024px) {
+        .menu-items {
+          gap: 15px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .main-content {
+          margin-top: 70px;
+        }
+
+        .floating-nav {
+          padding: 0 15px;
+        }
+
+        .nav-container {
+          height: 60px;
+          justify-content: space-between;
+        }
+
+        .centered-menu,
+        .menu-items {
+          display: none;
+        }
+
+        .logo-container {
+          position: static;
+        }
+
+        .contact-button-container {
+          position: static;
+        }
+
+        .hero-title {
+          font-size: 2.5rem !important;
+          line-height: 1.2 !important;
+        }
+
+        .hero-subtitle {
+          font-size: 1rem !important;
+        }
+
+        .newsletter-card {
+          padding: 30px 20px;
+        }
+
+        .newsletter-section {
+          padding: 40px 0;
+          margin: 40px 0;
+        }
+
+        .neural-network {
+          height: 300px;
+        }
+
+        footer {
+          padding-top: 40px !important;
+          padding-bottom: 40px !important;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr !important;
+          gap: 30px !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-title {
+          font-size: 2rem !important;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          gap: 12px !important;
+        }
+
+        .hero-buttons button {
+          width: 100%;
+        }
+
+        .neural-network {
+          height: 250px;
+        }
       }
     </style>
   </head>
   <body class="tech-grid-bg">
     <!-- Animated Background Elements -->
     <div id="node-network" class="node-network"></div>
+    <div class="tech-particles" id="tech-particles"></div>
 
     <!-- Navigation Bar -->
     <nav class="sticky-nav">
       <div class="glass-card floating-nav">
         <div class="nav-container">
           <!-- Logo -->
-          <div class="flex-shrink-0">
+          <div class="logo-container">
             <a href="#" class="flex items-center">
               <span
                 class="text-2xl font-bold gradient-text heading-font neon-text"
@@ -356,9 +518,9 @@
             </a>
           </div>
 
-          <!-- Desktop Menu -->
-          <div class="hidden md:block">
-            <div class="flex items-center space-x-2">
+          <!-- Desktop Menu - Centered -->
+          <div class="hidden md:block centered-menu">
+            <div class="menu-items">
               <a
                 href="#"
                 class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium nav-link active-nav-link"
@@ -384,12 +546,16 @@
                 class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium nav-link"
                 >Careers</a
               >
-              <button
-                class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg neon-text ml-4"
-              >
-                Contact Us
-              </button>
             </div>
+          </div>
+
+          <!-- Contact Button -->
+          <div class="contact-button-container">
+            <button
+              class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg neon-text"
+            >
+              Contact Us
+            </button>
           </div>
 
           <!-- Mobile menu button -->
@@ -463,7 +629,7 @@
     <div class="main-content">
       <!-- Hero Section -->
       <section
-        class="pt-20 pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative overflow-hidden"
+        class="pt-12 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative overflow-hidden"
       >
         <!-- Floating elements -->
         <div
@@ -476,7 +642,7 @@
         <div
           class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10"
         >
-          <div class="space-y-8">
+          <div class="space-y-6 md:space-y-8">
             <div
               class="inline-block glass-card px-4 py-2 rounded-full mb-4 neon-border"
             >
@@ -485,26 +651,28 @@
               >
             </div>
             <h1
-              class="text-5xl md:text-6xl font-bold leading-tight heading-font"
+              class="text-4xl md:text-6xl font-bold leading-tight heading-font hero-title"
             >
               <span class="gradient-text neon-text">Building</span> The Future
               <br />
               <span class="text-white">With</span>
               <span class="gradient-text neon-text">Intelligent</span> Code
             </h1>
-            <p class="text-lg text-gray-400 max-w-lg">
+            <p
+              class="text-base md:text-lg text-gray-400 max-w-lg hero-subtitle"
+            >
               At Modexia, we're redefining what's possible with AI-driven
               software solutions that transform businesses and accelerate
               innovation.
             </p>
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-4 hero-buttons">
               <button
-                class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg hover-scale neon-text"
+                class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-6 py-3 md:px-8 md:py-4 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg hover-scale neon-text"
               >
                 Explore Solutions
               </button>
               <button
-                class="border border-blue-400 text-blue-400 hover:bg-blue-400/10 px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover-scale"
+                class="border border-blue-400 text-blue-400 hover:bg-blue-400/10 px-6 py-3 md:px-8 md:py-4 rounded-full text-sm font-medium transition-all duration-300 hover-scale"
               >
                 Learn More
               </button>
@@ -512,33 +680,29 @@
           </div>
           <div class="relative">
             <div
-              class="glass-card p-1 rounded-2xl hover-scale transition-all duration-500 neon-border"
+              class="glass-card p-1 rounded-2xl hover-scale transition-all duration-500 neon-border h-full min-h-[300px] md:min-h-[400px]"
             >
-              <img
-                src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2232&auto=format&fit=crop"
-                alt="Holographic AI interface"
-                class="rounded-2xl w-full h-auto hero-computer"
-              />
+              <div class="neural-network" id="neural-network"></div>
             </div>
-            <div class="absolute -bottom-6 -left-6 z-10">
+            <div class="absolute -bottom-6 -left-6 z-10 hidden md:block">
               <div
-                class="glass-card p-6 rounded-2xl w-40 h-40 flex flex-col items-center justify-center neon-border"
+                class="glass-card p-6 rounded-2xl w-32 h-32 md:w-40 md:h-40 flex flex-col items-center justify-center neon-border"
               >
                 <span
-                  class="text-4xl font-bold gradient-text heading-font neon-text"
+                  class="text-3xl md:text-4xl font-bold gradient-text heading-font neon-text"
                   >AI</span
                 >
                 <span class="text-xs text-gray-400 uppercase tracking-wider"
-                  >Powered Solutions</span
+                  >Powered</span
                 >
               </div>
             </div>
-            <div class="absolute -top-6 -right-6 z-10">
+            <div class="absolute -top-6 -right-6 z-10 hidden md:block">
               <div
-                class="glass-card p-6 rounded-2xl w-40 h-40 flex flex-col items-center justify-center neon-border"
+                class="glass-card p-6 rounded-2xl w-32 h-32 md:w-40 md:h-40 flex flex-col items-center justify-center neon-border"
               >
                 <span
-                  class="text-4xl font-bold gradient-text heading-font neon-text"
+                  class="text-3xl md:text-4xl font-bold gradient-text heading-font neon-text"
                   >100%</span
                 >
                 <span class="text-xs text-gray-400 uppercase tracking-wider"
@@ -551,25 +715,29 @@
       </section>
 
       <!-- Content Sections -->
-      <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold heading-font mb-6">
+      <section
+        class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative"
+      >
+        <div class="text-center mb-12 md:mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold heading-font mb-4 md:mb-6">
             Our Innovative Solutions
           </h2>
-          <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p class="text-base md:text-xl text-gray-400 max-w-3xl mx-auto">
             Cutting-edge technologies designed to propel your business into the
             future
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="glass-card p-8 rounded-2xl hover-scale neon-border">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div
+            class="glass-card p-6 md:p-8 rounded-2xl hover-scale neon-border"
+          >
             <div
-              class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center mb-6"
+              class="w-12 h-12 md:w-16 md:h-16 gradient-bg rounded-xl flex items-center justify-center mb-4 md:mb-6"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-8 w-8 text-white"
+                class="h-6 w-6 md:h-8 md:w-8 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -582,22 +750,24 @@
                 />
               </svg>
             </div>
-            <h3 class="text-xl font-bold mb-3 heading-font">
+            <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 heading-font">
               AI & Machine Learning
             </h3>
-            <p class="text-gray-400">
+            <p class="text-sm md:text-base text-gray-400">
               Transform your business with intelligent systems that learn and
               adapt to your needs.
             </p>
           </div>
 
-          <div class="glass-card p-8 rounded-2xl hover-scale neon-border">
+          <div
+            class="glass-card p-6 md:p-8 rounded-2xl hover-scale neon-border"
+          >
             <div
-              class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center mb-6"
+              class="w-12 h-12 md:w-16 md:h-16 gradient-bg rounded-xl flex items-center justify-center mb-4 md:mb-6"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-8 w-8 text-white"
+                class="h-6 w-6 md:h-8 md:w-8 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -610,20 +780,24 @@
                 />
               </svg>
             </div>
-            <h3 class="text-xl font-bold mb-3 heading-font">Cloud Computing</h3>
-            <p class="text-gray-400">
+            <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 heading-font">
+              Cloud Computing
+            </h3>
+            <p class="text-sm md:text-base text-gray-400">
               Scalable, secure cloud solutions that grow with your business
               needs.
             </p>
           </div>
 
-          <div class="glass-card p-8 rounded-2xl hover-scale neon-border">
+          <div
+            class="glass-card p-6 md:p-8 rounded-2xl hover-scale neon-border"
+          >
             <div
-              class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center mb-6"
+              class="w-12 h-12 md:w-16 md:h-16 gradient-bg rounded-xl flex items-center justify-center mb-4 md:mb-6"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-8 w-8 text-white"
+                class="h-6 w-6 md:h-8 md:w-8 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -636,8 +810,10 @@
                 />
               </svg>
             </div>
-            <h3 class="text-xl font-bold mb-3 heading-font">Cybersecurity</h3>
-            <p class="text-gray-400">
+            <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 heading-font">
+              Cybersecurity
+            </h3>
+            <p class="text-sm md:text-base text-gray-400">
               Protect your digital assets with our advanced security solutions.
             </p>
           </div>
@@ -654,13 +830,17 @@
             </div>
 
             <div class="newsletter-content">
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div
+                class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
+              >
                 <div>
-                  <h3 class="text-3xl md:text-4xl font-bold mb-6 heading-font">
+                  <h3
+                    class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 heading-font"
+                  >
                     Join Our
                     <span class="gradient-text neon-text">Tech Revolution</span>
                   </h3>
-                  <p class="text-xl text-gray-300 mb-8">
+                  <p class="text-base md:text-xl text-gray-300 mb-6 md:mb-8">
                     Subscribe to our newsletter and be the first to access
                     cutting-edge insights, exclusive content, and early releases
                     of our innovative solutions.
@@ -668,7 +848,7 @@
                   <div class="flex items-center space-x-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      class="h-8 w-8 text-blue-400"
+                      class="h-6 w-6 md:h-8 md:w-8 text-blue-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -680,31 +860,31 @@
                         d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                       />
                     </svg>
-                    <span class="text-gray-400"
+                    <span class="text-xs md:text-sm text-gray-400"
                       >We never share your email. Unsubscribe anytime.</span
                     >
                   </div>
                 </div>
 
                 <div>
-                  <form class="space-y-6">
+                  <form class="space-y-4 md:space-y-6">
                     <div>
                       <input
                         type="text"
                         placeholder="Your Name"
-                        class="w-full bg-gray-900/50 border border-gray-700 rounded-full px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        class="w-full bg-gray-900/50 border border-gray-700 rounded-full px-4 py-3 md:px-6 md:py-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
                       />
                     </div>
                     <div>
                       <input
                         type="email"
                         placeholder="Your Email"
-                        class="w-full bg-gray-900/50 border border-gray-700 rounded-full px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        class="w-full bg-gray-900/50 border border-gray-700 rounded-full px-4 py-3 md:px-6 md:py-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
                       />
                     </div>
                     <button
                       type="submit"
-                      class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:shadow-lg neon-text"
+                      class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-6 py-3 md:px-8 md:py-4 rounded-full text-sm md:text-lg font-medium transition-all duration-300 hover:shadow-lg neon-text"
                     >
                       Subscribe Now
                     </button>
@@ -718,17 +898,21 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 pt-20 pb-16">
+    <footer
+      class="bg-gray-900 border-t border-gray-800 pt-12 md:pt-20 pb-12 md:pb-16"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div
+          class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 footer-grid"
+        >
           <!-- Company Info -->
           <div>
             <h3
-              class="text-2xl font-bold gradient-text heading-font neon-text mb-6"
+              class="text-xl md:text-2xl font-bold gradient-text heading-font neon-text mb-4 md:mb-6"
             >
               MODEXIA
             </h3>
-            <p class="text-gray-400 mb-6">
+            <p class="text-sm md:text-base text-gray-400 mb-4 md:mb-6">
               Pioneering the digital frontier with innovative AI and software
               solutions that redefine possibilities.
             </p>
@@ -738,7 +922,7 @@
                 class="text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <svg
-                  class="h-6 w-6"
+                  class="h-5 w-5 md:h-6 md:w-6"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -755,7 +939,7 @@
                 class="text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <svg
-                  class="h-6 w-6"
+                  class="h-5 w-5 md:h-6 md:w-6"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -770,7 +954,7 @@
                 class="text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <svg
-                  class="h-6 w-6"
+                  class="h-5 w-5 md:h-6 md:w-6"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -787,7 +971,7 @@
                 class="text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <svg
-                  class="h-6 w-6"
+                  class="h-5 w-5 md:h-6 md:w-6"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -804,49 +988,51 @@
 
           <!-- Quick Links -->
           <div>
-            <h3 class="text-lg font-semibold text-white mb-6 heading-font">
+            <h3
+              class="text-lg font-semibold text-white mb-4 md:mb-6 heading-font"
+            >
               Quick Links
             </h3>
-            <ul class="space-y-3">
+            <ul class="space-y-2 md:space-y-3">
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >Home</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >Solutions</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >Services</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >About</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >Careers</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >Blog</a
                 >
               </li>
@@ -855,49 +1041,51 @@
 
           <!-- Services -->
           <div>
-            <h3 class="text-lg font-semibold text-white mb-6 heading-font">
+            <h3
+              class="text-lg font-semibold text-white mb-4 md:mb-6 heading-font"
+            >
               Services
             </h3>
-            <ul class="space-y-3">
+            <ul class="space-y-2 md:space-y-3">
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >AI Solutions</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >Cloud Computing</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >Cybersecurity</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >Custom Software</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >Data Analytics</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  class="text-sm md:text-base text-gray-400 hover:text-blue-400 transition-colors"
                   >Tech Consulting</a
                 >
               </li>
@@ -906,10 +1094,12 @@
 
           <!-- Contact -->
           <div>
-            <h3 class="text-lg font-semibold text-white mb-6 heading-font">
+            <h3
+              class="text-lg font-semibold text-white mb-4 md:mb-6 heading-font"
+            >
               Contact Us
             </h3>
-            <ul class="space-y-3 text-gray-400">
+            <ul class="space-y-2 md:space-y-3 text-gray-400">
               <li class="flex items-start">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -931,7 +1121,9 @@
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                <span>123 Tech Avenue, Silicon Valley, CA 94000</span>
+                <span class="text-sm md:text-base"
+                  >123 Tech Avenue, Silicon Valley, CA 94000</span
+                >
               </li>
               <li class="flex items-center">
                 <svg
@@ -948,7 +1140,7 @@
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                   />
                 </svg>
-                <span>+1 (555) 123-4567</span>
+                <span class="text-sm md:text-base">+1 (555) 123-4567</span>
               </li>
               <li class="flex items-center">
                 <svg
@@ -965,26 +1157,32 @@
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                <span>info@modexia.com</span>
+                <span class="text-sm md:text-base">info@modexia.com</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div
-          class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
+          class="border-t border-gray-800 mt-8 md:mt-12 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center"
         >
-          <p class="text-gray-400 text-sm">
+          <p class="text-xs md:text-sm text-gray-400">
             © 2023 Modexia Technologies. All rights reserved.
           </p>
-          <div class="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" class="text-gray-400 hover:text-blue-400 text-sm"
+          <div class="flex space-x-4 md:space-x-6 mt-3 md:mt-0">
+            <a
+              href="#"
+              class="text-xs md:text-sm text-gray-400 hover:text-blue-400"
               >Privacy Policy</a
             >
-            <a href="#" class="text-gray-400 hover:text-blue-400 text-sm"
+            <a
+              href="#"
+              class="text-xs md:text-sm text-gray-400 hover:text-blue-400"
               >Terms of Service</a
             >
-            <a href="#" class="text-gray-400 hover:text-blue-400 text-sm"
+            <a
+              href="#"
+              class="text-xs md:text-sm text-gray-400 hover:text-blue-400"
               >Cookie Policy</a
             >
           </div>
@@ -1002,82 +1200,101 @@
           menu.classList.toggle("hidden");
         });
 
-      // Create node network animation
-      function createNodeNetwork() {
-        const container = document.getElementById("node-network");
-        const width = window.innerWidth;
-        const height = document.body.scrollHeight;
+      // Create neural network visualization
+      function createNeuralNetwork() {
+        const container = document.getElementById("neural-network");
+        const width = container.offsetWidth;
+        const height = container.offsetHeight;
 
-        // Create nodes
-        const nodeCount = 30;
+        // Create layers
+        const layers = 5;
+        const nodesPerLayer = [3, 5, 7, 5, 3];
         const nodes = [];
 
-        for (let i = 0; i < nodeCount; i++) {
-          const node = document.createElement("div");
-          node.className = "node pulse";
-          node.style.left = `${Math.random() * width}px`;
-          node.style.top = `${Math.random() * height}px`;
-          node.style.animationDelay = `${Math.random() * 2}s`;
-          container.appendChild(node);
-          nodes.push({
-            element: node,
-            x: parseFloat(node.style.left),
-            y: parseFloat(node.style.top),
-          });
+        // Create nodes
+        for (let l = 0; l < layers; l++) {
+          const layerNodes = [];
+          const x = (l + 1) * (width / (layers + 1));
+
+          for (let n = 0; n < nodesPerLayer[l]; n++) {
+            const y =
+              (n + 1) * (height / (nodesPerLayer[l] + 1)) +
+              (Math.random() * 20 - 10);
+            const node = document.createElement("div");
+            node.className = "neural-node";
+            node.style.left = `${x}px`;
+            node.style.top = `${y}px`;
+            node.style.animationDelay = `${Math.random() * 2}s`;
+            container.appendChild(node);
+
+            layerNodes.push({ x, y });
+          }
+
+          nodes.push(layerNodes);
         }
 
         // Create connections
-        for (let i = 0; i < nodes.length; i++) {
-          for (let j = i + 1; j < nodes.length; j++) {
-            const distance = Math.sqrt(
-              Math.pow(nodes[i].x - nodes[j].x, 2) +
-                Math.pow(nodes[i].y - nodes[j].y, 2)
-            );
+        for (let l = 0; l < layers - 1; l++) {
+          for (let n = 0; n < nodes[l].length; n++) {
+            for (let n2 = 0; n2 < nodes[l + 1].length; n2++) {
+              const from = nodes[l][n];
+              const to = nodes[l + 1][n2];
 
-            if (distance < 300) {
-              const connection = document.createElement("div");
-              connection.className = "connection";
-
-              const angle = Math.atan2(
-                nodes[j].y - nodes[i].y,
-                nodes[j].x - nodes[i].x
+              const distance = Math.sqrt(
+                Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2)
               );
 
+              const angle = Math.atan2(to.y - from.y, to.x - from.x);
+
+              const connection = document.createElement("div");
+              connection.className = "neural-connection";
               connection.style.width = `${distance}px`;
-              connection.style.left = `${nodes[i].x}px`;
-              connection.style.top = `${nodes[i].y}px`;
+              connection.style.left = `${from.x}px`;
+              connection.style.top = `${from.y}px`;
               connection.style.transform = `rotate(${angle}rad)`;
-              connection.style.opacity = 0.1 + 0.4 * (1 - distance / 300);
+              connection.style.opacity = 0.1 + 0.4 * (1 - distance / height);
 
               container.appendChild(connection);
             }
           }
         }
 
-        // Create floating code snippets
-        const codeSnippets = [
-          "AI.predict(future);",
-          "const innovation = new Modexia();",
-          "neuralNetwork.train(data);",
-          "cloud.deploy(solutions);",
-          "software.transform(business);",
-        ];
+        // Animate nodes
+        setInterval(() => {
+          const allNodes = document.querySelectorAll(".neural-node");
+          allNodes.forEach((node) => {
+            const currentTop = parseFloat(node.style.top);
+            const newTop = currentTop + (Math.random() * 4 - 2);
+            node.style.top = `${newTop}px`;
+          });
+        }, 100);
+      }
 
-        for (let i = 0; i < 15; i++) {
-          const snippet = document.createElement("div");
-          snippet.className = "code-snippet floating";
-          snippet.style.left = `${Math.random() * width}px`;
-          snippet.style.top = `${Math.random() * height}px`;
-          snippet.style.animationDelay = `${Math.random() * 2}s`;
-          snippet.textContent =
-            codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-          container.appendChild(snippet);
+      // Create tech particles
+      function createTechParticles() {
+        const container = document.getElementById("tech-particles");
+        const width = window.innerWidth;
+        const height = document.body.scrollHeight;
+
+        for (let i = 0; i < 100; i++) {
+          const particle = document.createElement("div");
+          particle.className = "tech-particle";
+          particle.style.left = `${Math.random() * width}px`;
+          particle.style.top = `${Math.random() * height}px`;
+          particle.style.width = `${Math.random() * 3 + 1}px`;
+          particle.style.height = particle.style.width;
+          particle.style.opacity = Math.random() * 0.5 + 0.1;
+          particle.style.animation = `floating ${
+            Math.random() * 10 + 5
+          }s ease-in-out infinite ${Math.random() * 5}s`;
+          container.appendChild(particle);
         }
       }
 
       // Initialize animations when page loads
       window.addEventListener("load", function () {
-        createNodeNetwork();
+        createNeuralNetwork();
+        createTechParticles();
 
         // Animate elements when they come into view
         const observer = new IntersectionObserver(
@@ -1126,6 +1343,28 @@
             nav.style.background = "rgba(5, 10, 20, 0.7)";
           }
         });
+
+        // Adjust content spacing to prevent gap before footer
+        function adjustContentSpacing() {
+          const mainContent = document.querySelector(".main-content");
+          const footer = document.querySelector("footer");
+          const windowHeight = window.innerHeight;
+          const contentHeight = mainContent.offsetHeight;
+          const footerTop = footer.offsetTop;
+
+          if (contentHeight + 200 < windowHeight) {
+            const spaceNeeded = windowHeight - contentHeight - 200;
+            mainContent.style.paddingBottom = `${spaceNeeded}px`;
+          } else {
+            mainContent.style.paddingBottom = "40px";
+          }
+        }
+
+        // Initial adjustment
+        adjustContentSpacing();
+
+        // Adjust on resize
+        window.addEventListener("resize", adjustContentSpacing);
       });
     </script>
   </body>
